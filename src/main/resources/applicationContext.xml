@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="com.xxs.ems.action"></context:component-scan>
+    <context:component-scan base-package="com.xxs.ems.dao"></context:component-scan>
+
+    <!-- daos -->
+    <bean id="userDao" class="com.xxs.ems.dao.impl.UserDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="bumenDao" class="com.xxs.ems.dao.impl.BumenDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="qingjiaDao" class="com.xxs.ems.dao.impl.QingjiaDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="kaoqinDao" class="com.xxs.ems.dao.impl.KaoqinDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="jiangjinDao" class="com.xxs.ems.dao.impl.JiangjinDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <bean id="gongziDao" class="com.xxs.ems.dao.impl.GongziDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <!-- action -->
+    <bean id="manageAction" class="com.xxs.ems.action.ManageAction" scope="prototype">
+
+        <property name="userDao">
+            <ref bean="userDao"/>
+        </property>
+        <property name="bumenDao">
+            <ref bean="bumenDao"/>
+        </property>
+        <property name="qingjiaDao">
+            <ref bean="qingjiaDao"/>
+        </property>
+        <property name="kaoqinDao">
+            <ref bean="kaoqinDao"/>
+        </property>
+        <property name="jiangjinDao">
+            <ref bean="jiangjinDao"/>
+        </property>
+        <property name="gongziDao">
+            <ref bean="gongziDao"/>
+        </property>
+    </bean>
+
+    <!-- 配置sessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="configLocation">
+            <value>classpath:hibernate.cfg.xml</value>
+        </property>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <!-- 配置事务的传播特性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 那些类的哪些方法参与事务 -->
+    <!--<aop:config>-->
+    <!--<aop:pointcut id="allManagerMethod" expression="execution(* com.xxs.ems.dao.*.*(..))"/>-->
+    <!--<aop:advisor pointcut-ref="allManagerMethod" advice-ref="txAdvice"/>-->
+    <!--</aop:config>-->
+
+</beans>

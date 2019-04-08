@@ -1,5 +1,7 @@
 package com.xxs.ems.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +10,7 @@ import javax.persistence.Table;
 //部门
 @Entity
 @Table(name = "t_Bumen")
+@Data
 public class Bumen {
 
     @Id
@@ -19,38 +22,5 @@ public class Bumen {
     private String name;//部门名称
 
     private String jibengongzi;//基本工资
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getDeletestatus() {
-        return deletestatus;
-    }
-
-    public void setDeletestatus(int deletestatus) {
-        this.deletestatus = deletestatus;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getJibengongzi() {
-        return jibengongzi;
-    }
-
-    public void setJibengongzi(String jibengongzi) {
-        this.jibengongzi = jibengongzi;
-    }
-
 
 }

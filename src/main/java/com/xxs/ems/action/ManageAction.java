@@ -1,5 +1,6 @@
 package com.xxs.ems.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.xxs.ems.dao.*;
 import com.xxs.ems.model.*;
@@ -7,6 +8,8 @@ import com.xxs.ems.util.Arith;
 import com.xxs.ems.util.Pager;
 import com.xxs.ems.util.Util;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,26 +19,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+@Component
+@Scope("prototype")
 public class ManageAction extends ActionSupport {
 
     private static final long serialVersionUID = -4304509122548259589L;
-    private UserDao userDao;
+
     private String url = "./";
-    private BumenDao bumenDao;
     private File uploadfile;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private BumenDao bumenDao;
+
+    @Autowired
     private QingjiaDao qingjiaDao;
+
+    @Autowired
     private KaoqinDao kaoqinDao;
+
+    @Autowired
     private JiangjinDao jiangjinDao;
+
+    @Autowired
     private GongziDao gongziDao;
-
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     public String getUrl() {
         return url;
@@ -47,11 +58,17 @@ public class ManageAction extends ActionSupport {
 
     //login
     public String login() throws IOException {
+
+        Map<String, Object> session1 = ActionContext.getContext().getSession();
+        HttpSession session2 = ServletActionContext.getRequest().getSession();
+        session1.put("sessionKey", "sessionValue...");
+
+
         HttpServletRequest request = ServletActionContext.getRequest();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
-        User user = userDao.selectBean(" where username = '" + username
+        User user = userDao.selectBean("from User where username = '" + username
                 + "' and password= '" + password + "' and role= " + role + " and deletestatus=0 ");
         if (user != null) {
             HttpSession session = request.getSession();

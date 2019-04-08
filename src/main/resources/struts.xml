@@ -6,12 +6,12 @@
 
 <struts>
     <!-- 修改常量管理struts 中的action的工程，这个常量的使用，必须引入 spring和struts的整合包，不然spring无法管理struts2 Action 中的实体类-->
-    <bean type="com.opensymphony.xwork2.ObjectFactory" name="spring"  class="org.apache.struts2.spring.StrutsSpringObjectFactory" />
     <constant name="struts.objectFactory" value="spring"/>
-    <constant name="struts.i18n.encoding" value="UTF-8"/>
-
+    <!--<constant name="struts.action.extension" value="action"/>-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
 
     <package name="index" namespace="/" extends="struts-default">
+        <global-allowed-methods>regex:.*</global-allowed-methods>
         <action name="method" class="manageAction">
             <result type="dispatcher">${url}</result>
             <result name="redirect" type="redirect">${url}</result>

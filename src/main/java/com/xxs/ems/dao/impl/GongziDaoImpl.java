@@ -4,15 +4,21 @@ import com.xxs.ems.dao.GongziDao;
 import com.xxs.ems.model.Gongzi;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
+import javax.annotation.Resource;
 import java.util.List;
 
-
+@Repository
 public class GongziDaoImpl extends HibernateDaoSupport implements GongziDao {
 
+    @Resource
+    public void setSessionFacotry(SessionFactory sessionFacotry) {
+        super.setSessionFactory(sessionFacotry);
+    }
 
     public void deleteBean(Gongzi bean) {
         this.getHibernateTemplate().delete(bean);
@@ -24,7 +30,6 @@ public class GongziDaoImpl extends HibernateDaoSupport implements GongziDao {
 
     }
 
-    @SuppressWarnings("unchecked")
     public Gongzi selectBean(String where) {
 
         return (Gongzi) this.getHibernateTemplate().find("from Gongzi " + where).get(0);
@@ -35,10 +40,9 @@ public class GongziDaoImpl extends HibernateDaoSupport implements GongziDao {
         return (int) count;
     }
 
-    @SuppressWarnings("unchecked")
     public List<Gongzi> selectBeanList(final int start, final int limit, final String where) {
-        return (List<Gongzi>) this.getHibernateTemplate().executeFind(new HibernateCallback() {
-            public Object doInHibernate(final Session session) throws HibernateException, SQLException {
+        return (List<Gongzi>) this.getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(final Session session) throws HibernateException {
                 List<Gongzi> list = session.createQuery("from Gongzi " + where)
                         .setFirstResult(start)
                         .setMaxResults(limit)

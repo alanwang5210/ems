@@ -1,12 +1,15 @@
 package com.xxs.ems.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
 //奖金
 @Entity
 @Table(name = "t_Jiangjin")
+@Data
 public class Jiangjin {
 
     @Id
@@ -27,62 +30,4 @@ public class Jiangjin {
     @ManyToOne
     @JoinColumn(name = "userid")
     private User user;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getDeletestatus() {
-        return deletestatus;
-    }
-
-    public void setDeletestatus(int deletestatus) {
-        this.deletestatus = deletestatus;
-    }
-
-    public Date getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getJine() {
-        return jine;
-    }
-
-    public void setJine(String jine) {
-        this.jine = jine;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getRiqi() {
-        return riqi;
-    }
-
-    public void setRiqi(String riqi) {
-        this.riqi = riqi;
-    }
-
-
 }

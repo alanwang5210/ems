@@ -1,11 +1,14 @@
 package com.xxs.ems.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
 //用户
 @Entity
 @Table(name = "t_user")
+@Data
 public class User {
 
     @Id
@@ -182,6 +185,5 @@ public class User {
     public void setXingbie(String xingbie) {
         this.xingbie = xingbie;
     }
-
 
 }

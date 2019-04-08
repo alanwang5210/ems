@@ -4,14 +4,21 @@ import com.xxs.ems.dao.BumenDao;
 import com.xxs.ems.model.Bumen;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
+import javax.annotation.Resource;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
+@Repository
 public class BumenDaoImpl extends HibernateDaoSupport implements BumenDao {
+
+    @Resource
+    public void setSessionFacotry(SessionFactory sessionFacotry) {
+        super.setSessionFactory(sessionFacotry);
+    }
 
     public void deleteBean(Bumen bean) {
         this.getHibernateTemplate().delete(bean);
@@ -23,7 +30,6 @@ public class BumenDaoImpl extends HibernateDaoSupport implements BumenDao {
 
     }
 
-    @SuppressWarnings("unchecked")
     public Bumen selectBean(String where) {
 
         return (Bumen) this.getHibernateTemplate().find("from Bumen " + where).get(0);
@@ -34,10 +40,9 @@ public class BumenDaoImpl extends HibernateDaoSupport implements BumenDao {
         return (int) count;
     }
 
-    @SuppressWarnings("unchecked")
     public List<Bumen> selectBeanList(final int start, final int limit, final String where) {
-        return (List<Bumen>) this.getHibernateTemplate().executeFind(new HibernateCallback() {
-            public Object doInHibernate(final Session session) throws HibernateException, SQLException {
+        return (List<Bumen>) this.getHibernateTemplate().execute(new HibernateCallback() {
+            public Object doInHibernate(final Session session) throws HibernateException {
                 List<Bumen> list = session.createQuery("from Bumen " + where).setFirstResult(start).setMaxResults(limit)
                         .list();
                 return list;

@@ -36,11 +36,18 @@
 
         <!-- struts2 spring  整合的核心包-->
         <!-- https://mvnrepository.com/artifact/org.apache.struts/struts2-spring-plugin -->
-        <!-- https://mvnrepository.com/artifact/org.apache.struts/struts2-spring-plugin -->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
-            <version>2.5.20</version>
+            <version>${struts.version}</version>
+        </dependency>
+
+        <!--config-browser-plugin插件，使用了这个插件之后，就可以很方便的浏览项目中的所有action及其与 jsp view的映射 -->
+        <!-- https://mvnrepository.com/artifact/org.apache.struts/struts2-config-browser-plugin -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-config-browser-plugin</artifactId>
+            <version>${struts.version}</version>
         </dependency>
 
 
@@ -102,6 +109,19 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -139,8 +159,19 @@
             <artifactId>druid</artifactId>
             <version>1.1.14</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
+        </dependency>
 
-
+        <!-- google双重验证 -->
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.12</version>
+        </dependency>
 
 
     </dependencies>

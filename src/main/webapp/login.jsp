@@ -4,6 +4,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -76,7 +77,7 @@
                 <span style="font-size: 30px;font-weight: bold;color: white;">企业员工信息管理系统</span>
             </div>
             <div id="main">
-                <form action="method!login.action" method="post" id="login_form">
+                <form action="method!login" method="post" id="login_form">
                     <table id="login">
                         <tr>
                             <td>用户名：</td>

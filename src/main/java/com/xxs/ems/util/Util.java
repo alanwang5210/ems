@@ -86,16 +86,16 @@ public class Util {
     public static void init(HttpServletRequest request) {
 
         WebApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
-		UserDao userDao = (UserDao) app.getBean("userDao");
-		User user = userDao.selectBean(" where username='admin' and deletestatus=0  ");
-		if (user == null) {
-			user = new User();
-			user.setPassword("111111");
-			user.setRole(1);
-			user.setTruename("admin");
-			user.setUsername("admin");
-			userDao.insertBean(user);
-		}
+        UserDao userDao = (UserDao) app.getBean("userDaoImpl");
+        User user = userDao.selectBean("from User where username='admin' and deletestatus=0");
+        if (user == null) {
+            user = new User();
+            user.setPassword("111111");
+            user.setRole(1);
+            user.setTruename("admin");
+            user.setUsername("admin");
+            userDao.insertBean(user);
+        }
     }
 
     public static void createZip(String src, String nilename, String path)

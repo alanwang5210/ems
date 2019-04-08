@@ -5,6 +5,7 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
 %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -42,12 +43,13 @@
     <body>
         <div id="all">
             <div style="font-size: 40px; font-weight: bold;" align="center">
-
+                <span style="color:#ff0000;"><s:debug></s:debug> </span>
                 欢迎
                 <c:if test="${user.role==0}">
 
                 </c:if>
                 使用本系统
+                <span style="color:#ff0000;"><s:debug></s:debug> </span>
             </div>
         </div>
     </body>
